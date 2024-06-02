@@ -3,7 +3,7 @@ from community_app.routers.questions import questions_bp
 from community_app.routers.response import response_bp
 from community_app.models.questions import Question, Statistic
 from community_app.models.response import Response
-from community_app.models.cateries import Category
+from community_app.models.categories import Category
 
 app = create_app()
 

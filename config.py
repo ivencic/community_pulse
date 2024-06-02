@@ -3,6 +3,7 @@ import os
 
 load_dotenv()
 
+
 class Config:
     DEBUG = False
     TESTING = False

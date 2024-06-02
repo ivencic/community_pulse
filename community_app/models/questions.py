@@ -2,7 +2,7 @@ from datetime import datetime
 
 from community_app import db
 
-from community_app.models.cateries import Category
+from community_app.models.categories import Category
 
 
 class Question(db.Model):

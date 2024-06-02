@@ -14,15 +14,6 @@ questions_bp = Blueprint('questions', __name__, url_prefix='/questions')
 def get_all_questions():
     questions: list[Question, ...] = Question.query.all()
 
-    # questions_data: list[dict] = [
-    #     {
-    #         "id": question.id,
-    #         "text": question.text,
-    #         "created_at": question.created_at
-    #     }
-    #     for question in questions
-    # ]
-
     results = [
         QuestionResponse.from_orm(question).dict() for question in questions
     ]
@@ -38,13 +29,6 @@ def get_all_questions():
 def add_new_question():
     data = request.get_json()
 
-    # if not data or 'text' not in data:
-    #     return jsonify(
-    #         {
-    #             "message": "NO DATA PROVIDED"
-    #         }
-    #     ), 400
-
     try:
         question_data = QuestionCreate(**data)
     except ValidationError as err:
@@ -55,14 +39,6 @@ def add_new_question():
     db.session.add(question)
     db.session.commit()
 
-    # return make_response(
-    #     jsonify(
-    #         {
-    #             "message": "NEW QUESTION ADDED",
-    #             "question_id": question.id
-    #         }
-    #     ), 201
-    # )
     return make_response(
         jsonify(QuestionResponse(
             id=question.id,
@@ -74,9 +50,6 @@ def add_new_question():
 @questions_bp.route('/<int:question_id>')
 def get_question_by_id(question_id):
     question: Question = Question.query.get(question_id)
-
-    # if not question:
-    #     abort(404)
 
     if not question:
         return make_response(jsonify(
